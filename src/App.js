@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Footer, GetSectionBySidebar, Navbar, Sidebar } from './components'
+import { SavedPage } from './containers'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
+const App = () => {
+  const [section, setSection] = useState(0)
+  const [sidebar, setSidebar] = useState("create")
+  const [hideModal, setHideModal] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Navbar />
+      <ToastContainer />
+      <div className="flex bg-gray-100">
+        <Sidebar
+          setSidebar={setSidebar}
+          sidebar={sidebar}
+          section={section}
+          setHideModal={setHideModal}
+        />
+        <main className="w-full p-4">
+          {section > 2 && sidebar === "create"
+            ?
+            <SavedPage />
+            :
+            <GetSectionBySidebar
+              sidebar={sidebar}
+              section={section}
+              setSection={setSection}
+              hideModal={hideModal}
+              setHideModal={setHideModal}
+            />
+          }
+          <Footer />
+        </main>
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
