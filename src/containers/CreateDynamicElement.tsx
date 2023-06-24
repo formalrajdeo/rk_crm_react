@@ -44,7 +44,9 @@ const checkHtmlType = (dynamicProps: dynamicPropsType) => {
 
 const CreateDynamicElement = (dynamicProps: dynamicPropsType) => {
     return (
-        checkHtmlType(dynamicProps)
+        <>
+            {checkHtmlType(dynamicProps)}
+        </>
     )
 }
 
